@@ -1,0 +1,28 @@
+name: robot-name
+version: 0.1.0.4
+
+# We list all packages needed here. Since we rely on System.Random, we must ensure
+# the generated .cabal file will depend on 'random'.
+dependencies:
+  - base
+  - mtl
+  - random
+
+library:
+  exposed-modules:
+    - Robot
+  source-dirs: src
+  ghc-options: -Wall
+  # Move 'random' here so hpack emits it into the .cabal for this library
+  dependencies:
+    - base
+    - mtl
+    - random
+
+tests:
+  test:
+    main: Tests.hs
+    source-dirs: test
+    dependencies:
+      - robot-name
+      - hspec

@@ -1,0 +1,23 @@
+cabal-version: 2.4
+name: etl
+version: 2.0.1.6
+build-type: Simple
+
+library
+  exposed-modules: ETL
+  hs-source-dirs: src
+  build-depends:
+      base >=4.7 && <5
+    , containers
+    , text
+  default-language: Haskell2010
+
+test-suite test
+  type: exitcode-stdio-1.0
+  main-is: Tests.hs
+  hs-source-dirs: test
+  build-depends:
+      base >=4.7 && <5
+    , etl
+    , hspec
+  default-language: Haskell2010

@@ -1,0 +1,17 @@
+name:                robot-name
+version:             0.1.0.4
+cabal-version:       >=1.10
+build-type:          Simple
+
+library
+  hs-source-dirs:      src
+  exposed-modules:     Robot
+  build-depends:       base, mtl, random, containers
+  ghc-options:         -Wall
+
+test-suite test
+  type:                exitcode-stdio-1.0
+  hs-source-dirs:      test
+  main-is:             Tests.hs
+  build-depends:       base, robot-name, hspec
+  ghc-options:         -Wall

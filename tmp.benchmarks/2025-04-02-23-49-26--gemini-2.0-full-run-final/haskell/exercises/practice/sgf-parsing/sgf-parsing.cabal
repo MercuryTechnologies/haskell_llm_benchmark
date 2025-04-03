@@ -1,0 +1,31 @@
+name:                sgf-parsing
+version:             1.2.0.5
+synopsis:            Parsing a Smart Game Format string.
+license:             MIT
+license-file:        LICENSE
+author:              Your Name
+maintainer:          your.email@example.com
+-- copyright:
+category:            Game
+build-type:          Simple
+cabal-version:       >= 2.0
+
+library
+  exposed-modules:   Sgf
+  source-dirs:      src
+  ghc-options:        -Wall
+  build-depends:
+    base >=4.7 && <5,
+    containers,
+    text,
+    parsec
+
+test-suite test
+  main-is:          Tests.hs
+  type:             exitcode-stdio-1.0
+  source-dirs:      test
+  ghc-options:        -Wall
+  build-depends:
+    base,
+    sgf-parsing,
+    hspec

@@ -1,0 +1,7 @@
+giftList :: Int -> String
+giftList n =
+    let relevantGifts = reverse $ take n gifts -- Gifts from day n down to day 1
+    in case relevantGifts of
+        [gift1] -> gift1 -- Only day 1
+        (g:gs)  -> intercalate ", " (reverse gs) ++ ", and " ++ g -- Days 2-12
+        []      -> "" -- Should not happen with valid n >= 1

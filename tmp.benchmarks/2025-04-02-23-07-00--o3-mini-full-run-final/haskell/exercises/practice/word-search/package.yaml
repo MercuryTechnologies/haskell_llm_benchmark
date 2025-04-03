@@ -1,0 +1,22 @@
+name: word-search
+version: 1.0.0.0
+
+dependencies:
+  - base
+
+library:
+  exposed-modules: WordSearch
+  source-dirs: src
+  ghc-options: -Wall
+  # This project finds words in a word search puzzle.
+  # dependencies:
+  # - foo       # List here the packages you
+  # - bar       # want to use in your solution.
+
+tests:
+  test:
+    main: Tests.hs
+    source-dirs: test
+    dependencies:
+      - word-search
+      - hspec

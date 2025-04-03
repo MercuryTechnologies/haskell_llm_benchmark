@@ -1,0 +1,39 @@
+cabal-version: 3.0
+
+name:                pig-latin
+version:             1.2.0.7
+synopsis:            Translates text from English to Pig Latin.
+-- description:
+homepage:            https://github.com/exercism/haskell/tree/main/exercises/pig-latin
+license:             MIT
+license-file:        LICENSE
+
+author:              Your Name Here
+maintainer:          your-email@example.com
+copyright:           2023 Your Name Here
+
+-- A URL where users can report issues.
+-- issue-tracker:
+build-type:          Simple
+extra-source-files:  README.md
+
+common warnings
+  ghc-options: -Wall
+
+library
+  import:           warnings
+  exposed-modules:  PigLatin
+  source-dirs:      src
+  build-depends:
+    base >=4.5 && <4.16,
+    text
+
+tests
+  import:           warnings
+  main-is:          Tests.hs
+  source-dirs:      test
+  build-depends:
+    base,
+    pig-latin,
+    hspec
+  ghc-options:      -threaded -rtsopts -with-rtsopts=-N

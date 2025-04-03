@@ -1,0 +1,41 @@
+cabal-version:      3.0
+name:               spiral-matrix
+version:            1.1.0.3
+synopsis:           Generates a spiral matrix.
+-- description:
+homepage:           https://github.com/example/spiral-matrix
+
+license:            BSD-3-Clause
+license-file:       LICENSE
+author:             Example Author
+maintainer:         example@example.com
+copyright:          2023 Example Author
+category:           Data Structures
+build-type:         Simple
+extra-source-files: CHANGELOG.md
+
+source-repository head
+  type:     git
+  location: https://github.com/example/spiral-matrix
+
+library
+  exposed-modules:  Spiral
+
+  source-dirs:      src
+  ghc-options:      -Wall
+  build-depends:
+    base >=4.7 && <5,
+    array
+
+test-suite test
+  default-language: Haskell2010
+  type:               exitcode-stdio-1.0
+  main-is:          Tests.hs
+  other-modules:
+      Spec
+  build-depends:
+      base,
+      hspec,
+      spiral-matrix
+  ghc-options:      -threaded -rtsopts -with-rtsopts=-N
+  source-dirs: test

@@ -1,0 +1,19 @@
+name: forth
+version: 1.7.1.13
+
+library:
+  exposed-modules: Forth
+  source-dirs: src
+  ghc-options: -Wall
+  dependencies:
+    - base
+    - text
+    - containers
+
+tests:
+  test:
+    main: Tests.hs
+    source-dirs: test
+    dependencies:
+      - forth
+      - hspec

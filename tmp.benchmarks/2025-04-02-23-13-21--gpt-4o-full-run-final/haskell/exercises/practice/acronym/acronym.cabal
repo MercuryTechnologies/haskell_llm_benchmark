@@ -1,0 +1,20 @@
+cabal-version: 2.4
+name:           acronym
+version:        1.7.0.11
+build-type:     Simple
+
+library
+  exposed-modules:     Acronym
+  hs-source-dirs:      src
+  build-depends:       base >=4.7 && <5
+                     , text
+  default-language:    Haskell2010
+
+test-suite test
+  type:                exitcode-stdio-1.0
+  hs-source-dirs:      test
+  main-is:             Tests.hs
+  build-depends:       base >=4.7 && <5
+                     , acronym
+                     , hspec
+  default-language:    Haskell2010

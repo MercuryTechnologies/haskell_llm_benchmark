@@ -1,0 +1,22 @@
+name: sgf-parsing
+version: 1.2.0.5
+
+dependencies:
+  - base
+  - containers
+  - text
+
+library:
+  exposed-modules: Sgf
+  source-dirs: src
+  ghc-options: -Wall
+  dependencies:
+    - parsec >= 3.1.15.0
+
+tests:
+  test:
+    main: Tests.hs
+    source-dirs: test
+    dependencies:
+      - sgf-parsing
+      - hspec

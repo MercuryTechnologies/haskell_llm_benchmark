@@ -1,0 +1,19 @@
+name: grade-school
+version: 1.0.0.4
+
+library:
+  source-dirs: src
+  ghc-options: -Wall
+  exposed-modules:
+    - School
+  dependencies:
+    - base >= 4.7
+    - containers
+
+tests:
+  test:
+    main: Tests.hs
+    source-dirs: test
+    dependencies:
+      - grade-school
+      - hspec

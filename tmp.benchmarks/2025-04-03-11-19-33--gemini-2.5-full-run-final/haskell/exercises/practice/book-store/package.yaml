@@ -1,0 +1,26 @@
+name: book-store
+version: 1.0.0.0
+
+dependencies:
+  - base
+# Moved containers and mtl to library dependencies
+# - containers # For Data.Map
+# - mtl        # For Control.Monad.State
+
+library:
+  exposed-modules: BookStore
+  source-dirs: src
+  ghc-options: -Wall
+  dependencies:
+   - containers # For Data.Map
+   - mtl        # For Control.Monad.State
+  # - foo       # List here the packages you
+  # - bar       # want to use in your solution.
+
+tests:
+  test:
+    main: Tests.hs
+    source-dirs: test
+    dependencies:
+      - book-store
+      - hspec

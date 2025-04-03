@@ -1,0 +1,37 @@
+cabal-version: 3.0
+name:           wordy
+version:        1.5.0.8
+synopsis:       Solution to the wordy exercise
+description:    Solution to the wordy exercise on Exercism
+license:        MIT
+license-file:   LICENSE
+
+author:         Your Name
+maintainer:     your.email@example.com
+copyright:      2023 Your Name
+
+source-repository head
+  type:     git
+  location: https://github.com/exercism/haskell/tree/main/exercises/wordy
+
+executable test
+  main-is:          Tests.hs
+  other-modules:
+      Paths_wordy
+  ghc-options:
+      - -threaded
+      - -rtsopts
+      - -with-rtsopts=-N
+  build-depends:
+      hspec                       >=2.7   && <2.12
+    , wordy
+  hs-source-dirs:   test
+  default-language: Haskell2010
+
+library
+  exposed-modules:  WordProblem
+  hs-source-dirs:   src
+  build-depends:
+      base >=4.7 && <5
+    , parsec
+  default-language: Haskell2010

@@ -1,0 +1,16 @@
+name: matching-brackets
+
+dependencies:
+  - base
+
+library:
+  exposed-modules: Brackets
+  source-dirs: src
+
+tests:
+  test:
+    main: Tests.hs
+    source-dirs: test
+    dependencies:
+      - matching-brackets
+      - hspec

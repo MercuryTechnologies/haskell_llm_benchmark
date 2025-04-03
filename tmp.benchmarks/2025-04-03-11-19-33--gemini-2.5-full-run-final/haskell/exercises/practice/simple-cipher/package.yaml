@@ -1,0 +1,20 @@
+name: simple-cipher
+version: 1.2.0.5
+
+dependencies:
+  - base
+
+library:
+  exposed-modules: Cipher
+  source-dirs: src
+  ghc-options: -Wall
+  dependencies:
+   - random # Added: needed for System.Random in Cipher.hs
+
+tests:
+  test:
+    main: Tests.hs
+    source-dirs: test
+    dependencies:
+      - simple-cipher
+      - hspec

@@ -1,0 +1,19 @@
+name: dnd-character
+version: 1.1.0.1
+
+dependencies:
+  - base
+  - QuickCheck
+
+library:
+  exposed-modules: DND
+  source-dirs: src
+  ghc-options: -Wall
+
+tests:
+  test:
+    main: Tests.hs
+    source-dirs: test
+    dependencies:
+      - dnd-character
+      - hspec

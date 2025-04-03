@@ -1,0 +1,19 @@
+name: rotational-cipher
+version: 1.2.0.4
+
+dependencies:
+  - base
+  - text
+
+library:
+  exposed-modules: RotationalCipher
+  source-dirs: src
+  ghc-options: -Wall
+
+tests:
+  test:
+    main: Tests.hs
+    source-dirs: test
+    dependencies:
+      - rotational-cipher
+      - hspec
