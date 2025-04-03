@@ -244,8 +244,8 @@ def main(
     dirname = updated_dirnames[0]
 
     if "AIDER_DOCKER" not in os.environ:
-        print("Warning: benchmarking runs unvetted code from GPT, run in a docker container")
-        return
+        print("Warning: benchmarking runs unvetted code from GPT, run in a docker container or isolated nix environment")
+        # return WARNING: removed this to allow running in a VM using nix
 
     assert BENCHMARK_DNAME.exists() and BENCHMARK_DNAME.is_dir(), BENCHMARK_DNAME
 
@@ -948,6 +948,7 @@ def run_unit_tests(original_dname, testdir, history_fname, test_files):
         ".js": ["/aider/benchmark/npm-test.sh"],
         ".cpp": ["/aider/benchmark/cpp-test.sh"],
         ".java": ["./gradlew", "test"],
+        ".hs": ["stack", "test"],
     }
 
     # Get unique file extensions from test files
