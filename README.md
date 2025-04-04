@@ -63,25 +63,19 @@ After running benchmarks for one or more models, you can generate comparison rep
 
 ```sh
 # Generate reports for all benchmarks (automatically uses all folders in tmp.benchmarks except polyglot-benchmark)
-./benchmark/summarize_results.py
+./benchmark/summarize_benchmark.py
 
 # Generate reports for specific benchmark directories
-./benchmark/summarize_results.py path/to/dir1 path/to/dir2
+./benchmark/summarize_benchmark.py path/to/dir1 path/to/dir2
 
 # Specify custom output paths
-./benchmark/summarize_results.py --table-output custom_table.csv --plot-output custom_plot.png
-
-# Alternative script with similar functionality, focused on Haskell benchmarks
-./benchmark/summarize_haskell.py
+./benchmark/summarize_benchmark.py --table-output custom_table.csv --plot-output custom_plot.png
 ```
 
-Reports are saved to the `benchmark-result/report-YYYY-MM-DD-HH-MM-SS/` directory and include:
-- A CSV file with the summary table
-- A markdown version of the summary table
-- A visualization comparing model performance and cost
-
-The `summarize_haskell.py` script processes Haskell-specific benchmark results and produces similar output with the following features:
-- Better handling of directory paths and model identification
-- Special handling for "thinking" models like Claude 3.7 with thinking enabled
-- Cleaner visualization with no gridlines and better label placement
-- Support for automatic processing of all benchmark directories
+The report generator will:
+- Extract key metrics from all benchmark results
+- Format model names for better readability
+- Sort models by pass rate
+- Generate a formatted table in both CSV and Markdown formats
+- Create a visual comparison chart showing pass rates and costs
+- Save results in a timestamped directory under benchmark-result/
