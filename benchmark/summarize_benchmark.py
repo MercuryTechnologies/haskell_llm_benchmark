@@ -133,10 +133,6 @@ def extract_key_metrics(dirname: str) -> Dict[str, Any]:
         if 'gemini/' in model_name:
             model_name = model_name.replace('gemini/', '')
         
-        # Simplify Claude model names
-        if 'claude-3-7-sonnet-20250219' in model_name:
-            model_name = model_name.replace('claude-3-7-sonnet-20250219', 'Sonnet-3.7')
-        
         metrics['model'] = model_name
             
     # Check if the directory name indicates thinking mode
@@ -173,54 +169,52 @@ def generate_table(metrics_list: List[Dict[str, Any]], output_path: Optional[str
     if not metrics_list:
         return "No metrics data available.", pd.DataFrame()
     
-    # Force a display name that includes (thinking) for thinking models
-    for metrics in metrics_list:
-        if metrics.get('is_thinking', False):
-            metrics['model_display'] = f"{metrics['model_base']} (thinking)"
-    
-    # Save raw metrics list before conversion to DataFrame
-    raw_metrics = []
-    for m in metrics_list:
-        raw_metrics.append(m.copy())
-    
     # Convert to DataFrame for easier manipulation
     df = pd.DataFrame(metrics_list)
     
-    # Print the models in the DataFrame for debugging
-    print("\nModels in DataFrame:")
-    if 'model_display' in df.columns:
-        for idx, model in enumerate(df['model_display']):
-            print(f"{idx}: {model}")
+    # Important: Force the model to be treated as a category with explicit ordering
+    # to prevent pandas from dropping duplicates or merging data
+    if 'model' in df.columns:
+        # Make a copy of the model column that uniquely identifies each row
+        df['model_display'] = df['model']
+        
+        # Ensure the model display column is used for display purposes
+        model_col = 'model_display'
+    else:
+        model_col = 'model'
     
-    # Create a new dataframe using model_display instead of model
-    # This circumvents any potential automatic combining of models with the same name
-    display_data = []
-    for metrics in raw_metrics:
-        display_row = {
-            'Model': metrics.get('model_display'),
-            'Tests': metrics.get('completed_tests'),
-            'Pass %': metrics.get('pass_rate_2'),
-            'Pass 1st Try %': metrics.get('pass_rate_1'),
-            'Tests Passed': metrics.get('passes_total'),
-            'Passes 1st Try': metrics.get('passes_1st_try'),
-            'Well Formed %': metrics.get('percent_cases_well_formed'),
-            'Errors': metrics.get('error_outputs'),
-            'Sec/Test': metrics.get('seconds_per_case'),
-            'Total Cost ($)': metrics.get('total_cost'),
-            'Cost/Test ($)': metrics.get('cost_per_case'),
-            # Add internal fields for sorting and plotting
-            '_model': metrics.get('model'),
-            '_dir_id': metrics.get('dir_id'),
-            '_is_thinking': metrics.get('is_thinking', False),
-            '_pass_rate': metrics.get('pass_rate_2')
-        }
-        display_data.append(display_row)
+    # Format for display
+    display_df = df.copy()
     
-    # Create display DataFrame directly from our controlled display_data
-    display_df = pd.DataFrame(display_data)
+    # Sort by pass rate
+    display_df = display_df.sort_values(by='pass_rate_2', ascending=False)
     
-    # Sort by pass rate (descending)
-    display_df = display_df.sort_values(by='_pass_rate', ascending=False)
+    # Select relevant columns for display
+    display_cols = [
+        model_col, 'completed_tests', 'pass_rate_2', 'pass_rate_1', 
+        'passes_total', 'passes_1st_try', 'percent_cases_well_formed', 
+        'error_outputs', 'seconds_per_case', 'total_cost', 'cost_per_case'
+    ]
+    
+    # Only include columns that exist
+    display_cols = [col for col in display_cols if col in display_df.columns]
+    display_df = display_df[display_cols]
+    
+    # Rename columns for better readability
+    rename_map = {
+        model_col: 'Model',
+        'completed_tests': 'Tests',
+        'pass_rate_2': 'Pass %',
+        'pass_rate_1': 'Pass 1st Try %',
+        'passes_total': 'Tests Passed',
+        'passes_1st_try': 'Passes 1st Try',
+        'percent_cases_well_formed': 'Well Formed %',
+        'error_outputs': 'Errors',
+        'seconds_per_case': 'Sec/Test',
+        'total_cost': 'Total Cost ($)',
+        'cost_per_case': 'Cost/Test ($)'
+    }
+    display_df = display_df.rename(columns={k: v for k, v in rename_map.items() if k in display_df.columns})
     
     # Format numbers
     for col in display_df.columns:
@@ -233,46 +227,31 @@ def generate_table(metrics_list: List[Dict[str, Any]], output_path: Optional[str
         elif col == 'Sec/Test':
             display_df[col] = display_df[col].apply(lambda x: f"{float(x):.1f}" if isinstance(x, (int, float)) else x)
     
-    # Select display columns (excluding internal ones)
-    display_cols = [
-        'Model', 'Tests', 'Pass %', 'Pass 1st Try %', 
-        'Tests Passed', 'Passes 1st Try', 'Well Formed %',
-        'Errors', 'Sec/Test', 'Total Cost ($)', 'Cost/Test ($)'
-    ]
-    display_df_final = display_df[display_cols]
-    
-    # Print final display DataFrame for debugging
-    print("\nFinal display DataFrame models:")
-    for idx, model in enumerate(display_df_final['Model']):
-        print(f"{idx}: {model}")
-    
     # Generate formatted table string
-    table_str = display_df_final.to_string(index=False)
+    table_str = display_df.to_string(index=False)
     
     # Save as CSV if requested
     if output_path:
         print(f"Saving results to {output_path}")
-        # Save both display and internal data
-        df_to_save = display_df.copy()
-        df_to_save.to_csv(output_path, index=False)
+        # Save the full data including the model_mode column
+        df.to_csv(output_path, index=False)
     
     # Save as markdown if requested
     if markdown_path:
         # Create a markdown table
-        md_cols = display_cols
+        md_cols = list(display_df.columns)
         md_table = "| " + " | ".join(md_cols) + " |\n"
         md_table += "| " + " | ".join(["---" for _ in md_cols]) + " |\n"
         
         # Add each row
-        for _, row in display_df_final.iterrows():
+        for _, row in display_df.iterrows():
             md_table += "| " + " | ".join([str(row[col]) for col in md_cols]) + " |\n"
         
         with open(markdown_path, 'w') as f:
             f.write(md_table)
         print(f"Saved markdown table to {markdown_path}")
     
-    # Return the full DataFrame with internal fields for the plot function
-    return table_str, display_df
+    return table_str, df
 
 def plot_comparison(df: pd.DataFrame, output_path: Optional[str] = None) -> None:
     """
@@ -283,11 +262,11 @@ def plot_comparison(df: pd.DataFrame, output_path: Optional[str] = None) -> None
         output_path: Path to save the plot image
     """
     # Define column names as variables for consistent usage
-    pass_rate_column = '_pass_rate'
-    cost_column = 'Total Cost ($)'
+    pass_rate_column = 'pass_rate_2'
+    cost_column = 'total_cost'
     
-    # Use the Model column for plotting
-    model_col = 'Model'
+    # Use the model_display column for plotting if it exists
+    model_col = 'model_display' if 'model_display' in df.columns else 'model'
     
     if not all(col in df.columns for col in [model_col, pass_rate_column, cost_column]):
         print(f"DataFrame missing required columns for plotting: {model_col}, {pass_rate_column}, {cost_column}")
@@ -295,7 +274,7 @@ def plot_comparison(df: pd.DataFrame, output_path: Optional[str] = None) -> None
     
     # Ensure numeric columns
     df[pass_rate_column] = pd.to_numeric(df[pass_rate_column], errors='coerce')
-    df[cost_column] = pd.to_numeric(df[cost_column].str.replace('$', '').astype(float), errors='coerce')
+    df[cost_column] = pd.to_numeric(df[cost_column], errors='coerce')
     
     # Sort by pass rate (descending)
     df = df.sort_values(by=pass_rate_column, ascending=False)
@@ -522,7 +501,6 @@ def main():
     parser.add_argument("--output", "-o", help="Output path prefix (default: generates a timestamp directory)")
     parser.add_argument("--table-output", "-t", help="Path to save the table CSV")
     parser.add_argument("--plot-output", "-p", help="Path to save the plot image")
-    parser.add_argument("--debug", "-d", action="store_true", help="Enable debug output")
     
     args = parser.parse_args()
     
@@ -561,29 +539,14 @@ def main():
     metrics_list = []
     for dirname in dirnames:
         print(f"Processing {dirname}...")
-        
-        # Check if this is a thinking directory before even calling extract_key_metrics
-        is_dir_thinking = "thinking" in dirname.name.lower()
-        print(f"Directory name contains 'thinking': {is_dir_thinking}")
-        
         metrics = extract_key_metrics(dirname)
         if metrics:
-            # Add a unique identifier based on directory
-            metrics['dir_id'] = dirname.name
-            
-            # Explicitly mark thinking models
-            if is_dir_thinking and 'claude' in metrics.get('model', '').lower():
-                # Add a special flag that will be used in display
-                metrics['is_thinking'] = True
-                # Keep the original name for unambiguous identification
-                metrics['model_base'] = metrics['model']
-                # Add (thinking) suffix to the model name for display
-                metrics['model_display'] = f"{metrics['model']} (thinking)"
-                print(f"Marked thinking model: {metrics['model_display']}")
-            else:
-                metrics['is_thinking'] = False
-                metrics['model_base'] = metrics['model']
-                metrics['model_display'] = metrics['model']
+            # Ensure unique model names - very important to do this before adding to the list
+            if 'thinking' in dirname.name.lower() and 'claude' in metrics.get('model', '').lower():
+                # Force the model name to include (thinking) to guarantee uniqueness
+                metrics['model'] = f"{metrics['model']} (thinking)"
+                metrics['model_mode'] = 'thinking'
+                print(f"Explicitly set model name: {metrics['model']}")
             
             metrics_list.append(metrics)
     
