@@ -6,8 +6,6 @@ It is a modified version of the [Aider benchmark harness](https://github.com/Aid
 
 The benchmark is based on [Exercism's Haskell exercises](https://exercism.org/tracks/haskell) ([Github](https://github.com/exercism/haskell)). This benchmark evaluates how effectively a coding assistant and LLMs can translate a natural language coding request into executable code saved into files that pass unit tests. It provides an end-to-end evaluation of not just the LLM's coding ability, but also its capacity to edit existing code and format those code edits so that aider can save the edits to the local source files.
 
-
-
 ### Instructions
 
 Can generally follow the instructions in the [Aider benchmark harness](https://github.com/Aider-AI/aider/blob/main/benchmark/README.md); with the following exceptions:
@@ -39,3 +37,32 @@ export GEMINI_API_KEY=...
 You need to be mindful of the API limits of the model you are using. For high volume APIs (e.g. OpenAI), I've had success using `20` threads. For Anthropic, I've had success using `5` threads, etc...
 
 Reference for model providers and models: https://aider.chat/docs/llms.html
+
+### Generating Reports
+
+After running benchmarks for one or more models, you can generate comparison reports with:
+
+```sh
+# Generate reports for all benchmarks (automatically uses all folders in tmp.benchmarks except polyglot-benchmark)
+./benchmark/summarize_results.py
+
+# Generate reports for specific benchmark directories
+./benchmark/summarize_results.py path/to/dir1 path/to/dir2
+
+# Specify custom output paths
+./benchmark/summarize_results.py --table-output custom_table.csv --plot-output custom_plot.png
+
+# Alternative script with similar functionality, focused on Haskell benchmarks
+./benchmark/summarize_haskell.py
+```
+
+Reports are saved to the `benchmark-result/report-YYYY-MM-DD-HH-MM-SS/` directory and include:
+- A CSV file with the summary table
+- A markdown version of the summary table
+- A visualization comparing model performance and cost
+
+The `summarize_haskell.py` script processes Haskell-specific benchmark results and produces similar output with the following features:
+- Better handling of directory paths and model identification
+- Special handling for "thinking" models like Claude 3.7 with thinking enabled
+- Cleaner visualization with no gridlines and better label placement
+- Support for automatic processing of all benchmark directories
