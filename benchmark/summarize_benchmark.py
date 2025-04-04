@@ -287,8 +287,8 @@ def plot_comparison(df: pd.DataFrame, output_path: Optional[str] = None) -> None
     plt.rcParams['axes.titleweight'] = 'bold'
     plt.rcParams['figure.facecolor'] = 'white'
     
-    # Create a larger figure with better aspect ratio
-    fig, ax1 = plt.subplots(figsize=(16, 10))
+    # Create a larger figure with better aspect ratio - making it wider to spread out x-axis labels
+    fig, ax1 = plt.subplots(figsize=(22, 10))  # Increased width from 20 to 22
     
     # Color palette
     bar_color = '#0066cc'  # Rich blue
@@ -299,8 +299,8 @@ def plot_comparison(df: pd.DataFrame, output_path: Optional[str] = None) -> None
     ax1.set_facecolor('#f8f9fa')
     fig.patch.set_facecolor('white')
     
-    # Bar width
-    bar_width = 0.7
+    # Bar width - make bars narrower to leave more space between them
+    bar_width = 0.5  # Reduced from 0.6 to create more space between bars
     
     # Plot bars for pass rate
     bars = ax1.bar(
@@ -326,8 +326,7 @@ def plot_comparison(df: pd.DataFrame, output_path: Optional[str] = None) -> None
             va='bottom',
             fontsize=18,
             fontweight='bold',
-            color='#000000',
-            bbox=dict(facecolor='white', alpha=0.7, edgecolor='none', boxstyle='round,pad=0.2')
+            color='#000000'
         )
     
     # Set up the primary y-axis with more padding
@@ -406,12 +405,11 @@ def plot_comparison(df: pd.DataFrame, output_path: Optional[str] = None) -> None
     legend.get_frame().set_facecolor('white')
     legend.get_frame().set_linewidth(2)
     
-    # Rotate x-axis labels at 45 degree angle
-    plt.xticks(rotation=45, ha='right', fontsize=12)
-    
     # Process model names for better readability
-    labels = plt.gca().get_xticklabels()
+    labels = ax1.get_xticklabels()
     
+    # First get model names and process them
+    processed_labels = []
     for label in labels:
         text = label.get_text()
         
@@ -428,34 +426,52 @@ def plot_comparison(df: pd.DataFrame, output_path: Optional[str] = None) -> None
             text = text.replace('claude-3-7-sonnet-20250219', 'Sonnet-3.7')
             text = text.replace('claude-3-7-sonnet-3.7', 'Sonnet-3.7')
         
-        # Handle special cases with mode indicators
-        if '(thinking)' in text or '(regular)' in text:
-            # Preserve the mode indicator but limit the width
-            parts = text.split(' (')
-            if len(parts) > 1:
-                base = parts[0]
-                mode = '(' + parts[1]
-                # Limit base name length
-                if len(base) > 12:
-                    base = base[:10] + '...'
-                text = f"{base}\n{mode}"
-        else:
-            # For other models, wrap text at a certain width
-            if len(text) > 12:
-                # Simple line break for long names
-                half_length = len(text) // 2
-                # Find space near the middle
-                space_pos = text.find(' ', half_length - 5)
-                if space_pos > 0:
-                    text = text[:space_pos] + '\n' + text[space_pos+1:]
-                else:
-                    # Force break if no space found
-                    text = text[:half_length] + '\n' + text[half_length:]
+        # Handle special cases with mode indicators - fix duplicate "thinking"
+        if '(thinking)' in text:
+            # Remove any existing "(thinking)" before adding it correctly
+            text = text.replace(' (thinking)', '')
+            # Then add the indicator once
+            text = f"{text} (thinking)"
         
-        label.set_text(text)
+        processed_labels.append(text)
     
-    # Add more padding below the plot for the labels
-    plt.subplots_adjust(bottom=0.25)
+    # Set up x-tick positions and labels explicitly
+    x_positions = range(len(df))
+    ax1.set_xticks(x_positions)
+    
+    # Calculate maximum lines for padding
+    wrapped_labels = []
+    max_lines = 1
+    
+    for text in processed_labels:
+        if len(text) > 15:  # If text is longer than 15 chars
+            # Use textwrap to create proper line breaks
+            wrapped_text = '\n'.join(textwrap.wrap(text, width=10, break_long_words=False))
+            wrapped_labels.append(wrapped_text)
+            # Count lines for padding calculation
+            lines = wrapped_text.count('\n') + 1
+            max_lines = max(max_lines, lines)
+        else:
+            wrapped_labels.append(text)
+    
+    # Set the wrapped labels and ensure they're horizontal and centered
+    ax1.set_xticklabels(wrapped_labels, rotation=0, ha='center', fontsize=12)
+    
+    # Adjust the bottom padding based on the maximum number of lines
+    bottom_padding = 0.15 + (max_lines * 0.03)  # Base padding plus additional per line
+    
+    # Add horizontal padding between ticks by setting margins
+    plt.margins(x=0.15)  # Increased from 0.1 to 0.15 for more padding
+    
+    # Adjust layout with extra space at bottom for labels
+    plt.tight_layout(rect=[0, 0.03, 1, 0.95])
+    plt.subplots_adjust(bottom=bottom_padding, wspace=0.3)  # Dynamic padding based on label height
+    
+    # Force the label settings one more time after all adjustments
+    for label in ax1.get_xticklabels():
+        label.set_rotation(0)  # Horizontal
+        label.set_ha('center')
+        label.set_fontsize(12)
     
     # No gridlines
     ax1.grid(False)
@@ -481,9 +497,6 @@ def plot_comparison(df: pd.DataFrame, output_path: Optional[str] = None) -> None
             spine.set_linewidth(0.5)
         else:
             spine.set_visible(False)
-    
-    # Adjust layout
-    plt.tight_layout(rect=[0, 0.03, 1, 0.95])
     
     # Save the figure
     if output_path:
@@ -541,13 +554,8 @@ def main():
         print(f"Processing {dirname}...")
         metrics = extract_key_metrics(dirname)
         if metrics:
-            # Ensure unique model names - very important to do this before adding to the list
-            if 'thinking' in dirname.name.lower() and 'claude' in metrics.get('model', '').lower():
-                # Force the model name to include (thinking) to guarantee uniqueness
-                metrics['model'] = f"{metrics['model']} (thinking)"
-                metrics['model_mode'] = 'thinking'
-                print(f"Explicitly set model name: {metrics['model']}")
-            
+            # No longer add thinking tag here - this prevents duplicate (thinking)
+            # Instead, we'll rely on the tag already added in extract_key_metrics
             metrics_list.append(metrics)
     
     if not metrics_list:
