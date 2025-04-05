@@ -132,6 +132,12 @@ def extract_key_metrics(dirname: str) -> Dict[str, Any]:
             model_name = model_name.replace('openai/', '')
         if 'gemini/' in model_name:
             model_name = model_name.replace('gemini/', '')
+        if 'openrouter/' in model_name:
+            model_name = model_name.replace('openrouter/', '')
+        if 'deepseek/' in model_name:
+            model_name = model_name.replace('deepseek/', '')
+        if 'meta-llama/' in model_name:
+            model_name = model_name.replace('meta-llama/', '')
         
         metrics['model'] = model_name
             
@@ -140,7 +146,7 @@ def extract_key_metrics(dirname: str) -> Dict[str, Any]:
     if "thinking" in dir_name.lower():
         is_thinking = True
     
-    print(f"is_thinking: {is_thinking}, dir_name: {dir_name}, model: {metrics['model']}")
+    # print(f"is_thinking: {is_thinking}, dir_name: {dir_name}, model: {metrics['model']}")
     
     # Add thinking mode tag to model name if applicable
     if is_thinking and metrics.get('model') and 'claude' in metrics.get('model', '').lower():
@@ -444,9 +450,9 @@ def plot_comparison(df: pd.DataFrame, output_path: Optional[str] = None) -> None
     max_lines = 1
     
     for text in processed_labels:
-        if len(text) > 15:  # If text is longer than 15 chars
+        if len(text) > 12:  # If text is longer than 12 chars
             # Use textwrap to create proper line breaks
-            wrapped_text = '\n'.join(textwrap.wrap(text, width=10, break_long_words=False))
+            wrapped_text = '\n'.join(textwrap.wrap(text, width=12, break_long_words=True))
             wrapped_labels.append(wrapped_text)
             # Count lines for padding calculation
             lines = wrapped_text.count('\n') + 1
