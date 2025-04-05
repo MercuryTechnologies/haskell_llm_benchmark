@@ -1,0 +1,1 @@
+let z' = f z x in z' `seq` foldl' f z' xs

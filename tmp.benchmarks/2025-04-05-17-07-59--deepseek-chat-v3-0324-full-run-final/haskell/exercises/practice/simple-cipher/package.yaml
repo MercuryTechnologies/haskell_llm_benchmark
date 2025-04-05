@@ -1,0 +1,23 @@
+name: simple-cipher
+version: 1.2.0.5
+
+dependencies:
+  - base >=4.14 && <5
+  - random >=1.2.0
+
+library:
+  exposed-modules: Cipher
+  source-dirs: src
+  ghc-options: -Wall
+  build-depends:
+    - base
+    - random
+
+tests:
+  test:
+    main: Tests.hs
+    source-dirs: test
+    dependencies:
+      - simple-cipher
+      - hspec
+      - random
