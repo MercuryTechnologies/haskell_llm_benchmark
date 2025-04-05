@@ -19,3 +19,5 @@ venv/
 # tmp.benchmarks/
 .stack-work/
 .envrc
+.direnv/
+.stack-root/

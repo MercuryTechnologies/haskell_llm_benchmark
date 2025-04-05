@@ -6,9 +6,9 @@ It is a modified version of the [Aider benchmark harness](https://github.com/Aid
 
 The benchmark is based on [Exercism's Haskell exercises](https://exercism.org/tracks/haskell) ([Github](https://github.com/exercism/haskell)). This benchmark evaluates how effectively a coding assistant and LLMs can translate a natural language coding request into executable code saved into files that pass unit tests. It provides an end-to-end evaluation of not just the LLM's coding ability, but also its capacity to edit existing code and format those code edits so that aider can save the edits to the local source files.
 
-_Last updated: 2025-04-04_
+_Last updated: 2025-04-05_
 
-![Haskell LLM Benchmark](/benchmark-result/report-2025-04-04-16-15-31/benchmark_comparison.png)
+![Haskell LLM Benchmark](/benchmark-result/report-2025-04-05-17-30-51/benchmark_comparison.png)
 
 | Model | Tests | Pass % | Pass 1st Try % | Tests Passed | Passes 1st Try | Well Formed % | Errors | Sec/Test | Total Cost ($) | Cost/Test ($) |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -17,10 +17,14 @@ _Last updated: 2025-04-04_
 | claude-3-7-sonnet-20250219 (thinking) | 112 | 77.7 | 67.9 | 87 | 76 | 99.1 | 2 | 79.5 | 12.55 | 0.1120 |
 | gemini-2.5-pro-exp-03-25 | 112 | 75.0 | 65.2 | 84 | 73 | 97.3 | 3 | 40.9 | 0.00 | 0.0000 |
 | o3-mini | 112 | 75.0 | 63.4 | 84 | 71 | 100.0 | 0 | 37.5 | 2.13 | 0.0190 |
+| quasar-alpha | 112 | 69.6 | 54.5 | 78 | 61 | 98.2 | 2 | 7.4 | 0.00 | 0.0000 |
 | claude-3-7-sonnet-20250219 | 112 | 66.1 | 55.4 | 74 | 62 | 99.1 | 1 | 15.9 | 3.80 | 0.0340 |
 | gpt-4o | 112 | 57.1 | 48.2 | 64 | 54 | 100.0 | 0 | 12.4 | 1.60 | 0.0143 |
+| deepseek-chat-v3-0324 | 112 | 56.2 | 42.0 | 63 | 47 | 100.0 | 0 | 59.2 | 0.41 | 0.0037 |
 | gemini-2.0-flash | 112 | 45.5 | 37.5 | 51 | 42 | 97.3 | 3 | 4.9 | 0.08 | 0.0007 |
+| llama-4-maverick | 5 | 40.0 | 40.0 | 2 | 2 | 100.0 | 0 | 8.5 | 0.00 | 0.0000 |
 | gpt-4o-mini | 112 | 34.8 | 23.2 | 39 | 26 | 100.0 | 0 | 13.4 | 0.11 | 0.0010 |
+
 
 
 ___
