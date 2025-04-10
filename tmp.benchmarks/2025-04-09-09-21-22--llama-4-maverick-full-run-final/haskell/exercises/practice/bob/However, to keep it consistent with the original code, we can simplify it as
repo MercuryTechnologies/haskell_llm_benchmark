@@ -1,0 +1,2 @@
+isYelling :: String -> Bool
+isYelling xs = any (\x -> elem x ['A'..'Z']) xs && null (filter (\x -> elem x ['a'..'z']) (filter (\x -> elem x ['A'..'Z'] || elem x ['a'..'z']) xs))

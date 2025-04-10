@@ -1,0 +1,3 @@
+isYelling :: String -> Bool
+isYelling xs = not (null letters) && all isUpper letters
+  where letters = filter isAlpha xs

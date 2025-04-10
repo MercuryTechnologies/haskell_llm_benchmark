@@ -1,0 +1,19 @@
+name: pangram
+version: 2.0.0.12
+
+dependencies:
+  - base >= 4.7 && < 5
+  - containers
+
+library:
+  exposed-modules: Pangram
+  source-dirs: src
+  ghc-options: -Wall
+
+tests:
+  test:
+    main: Tests.hs
+    source-dirs: test
+    dependencies:
+      - pangram
+      - hspec

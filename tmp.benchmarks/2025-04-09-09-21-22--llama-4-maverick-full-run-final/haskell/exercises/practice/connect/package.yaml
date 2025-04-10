@@ -1,0 +1,19 @@
+name: connect
+version: 1.1.0.6
+
+dependencies:
+  - base
+  - containers
+
+library:
+  source-dirs: src
+  ghc-options: -Wall
+  exposed-modules: Connect
+
+tests:
+  test:
+    main: Tests.hs
+    source-dirs: test
+    dependencies:
+      - connect
+      - hspec

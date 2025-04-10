@@ -1,0 +1,5 @@
+
+This refactored version defines a data type `Animal` to represent the different animals in the song. It then defines functions to generate the different parts of each verse, and finally combines these parts to generate the entire song.
+
+No changes are needed in `package.yaml`. 
+
