@@ -28,7 +28,6 @@ _Last updated: 2025-04-10_
 
 
 
-
 ___
 
 ## Instructions
@@ -45,7 +44,7 @@ Once you have a cloned repo:
 ```sh
 nix-develop
 
-# set your API keys
+# set your API keys (alternatively, you can set the keys in .envrc if using direnv (nix env has it set up))
 export OPENAI_API_KEY=sk-proj-...
 export ANTHROPIC_API_KEY=...
 export GEMINI_API_KEY=...
