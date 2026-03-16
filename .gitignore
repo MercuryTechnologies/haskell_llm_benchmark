@@ -13,7 +13,11 @@ _site
 aider/__version__.py
 aider/_version.py
 .venv/
+venv/
 .#*
 .gitattributes
-tmp.benchmarks/
-.docker_bash_history
+# tmp.benchmarks/
+.stack-work/
+.envrc
+.direnv/
+.stack-root/
