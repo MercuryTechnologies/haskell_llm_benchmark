@@ -104,6 +104,7 @@
           # Additional dependencies for visualization
           imgcat
           lox
+          black
         ]);
       in
       {

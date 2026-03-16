@@ -250,8 +250,11 @@ def main(
     dirname = updated_dirnames[0]
 
     if "AIDER_DOCKER" not in os.environ:
-        print("Warning: benchmarking runs unvetted code from GPT, run in a docker container")
-        return
+        print(
+            "Warning: benchmarking runs unvetted code from GPT, run in a docker container or"
+            " isolated nix environment"
+        )
+        # return WARNING: removed this to allow running in a VM using nix
 
     assert BENCHMARK_DNAME.exists() and BENCHMARK_DNAME.is_dir(), BENCHMARK_DNAME
 
@@ -939,6 +942,17 @@ def run_test_real(
             if verbose:
                 print(f"Failed to clean up Node.js node_modules directory: {e}")
 
+    # Haskell .stack-work directory
+    stack_work_dir = testdir / ".stack-work"
+    if stack_work_dir.exists():
+        try:
+            shutil.rmtree(stack_work_dir)
+            if verbose:
+                print(f"Cleaned up Haskell .stack-work directory: {stack_work_dir}")
+        except (OSError, shutil.Error, PermissionError) as e:
+            if verbose:
+                print(f"Failed to clean up Haskell .stack-work directory: {e}")
+
     results = dict(
         testdir=str(testdir),
         testcase=testdir.name,
@@ -989,6 +1003,7 @@ def run_unit_tests(original_dname, testdir, history_fname, test_files):
         ".js": ["/aider/benchmark/npm-test.sh"],
         ".cpp": ["/aider/benchmark/cpp-test.sh"],
         ".java": ["./gradlew", "test"],
+        ".hs": ["cabal", "test"],
     }
 
     # Get unique file extensions from test files

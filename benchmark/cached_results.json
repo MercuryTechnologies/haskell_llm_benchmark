@@ -1,0 +1,54 @@
+[
+  {
+    "model": "gpt-5-pro",
+    "completed_tests": 112,
+    "pass_rate_2": 90.2,
+    "pass_rate_1": 83.0,
+    "passes_total": 101,
+    "passes_1st_try": 93,
+    "percent_cases_well_formed": 100.0,
+    "error_outputs": 29,
+    "seconds_per_case": 733.3,
+    "total_cost": 75.16,
+    "cost_per_case": 0.6710
+  },
+  {
+    "model": "gpt-5-high",
+    "completed_tests": 112,
+    "pass_rate_2": 90.2,
+    "pass_rate_1": 82.1,
+    "passes_total": 101,
+    "passes_1st_try": 92,
+    "percent_cases_well_formed": 100.0,
+    "error_outputs": 0,
+    "seconds_per_case": 117.2,
+    "total_cost": 6.93,
+    "cost_per_case": 0.0619
+  },
+  {
+    "model": "gemini-3-pro-preview",
+    "completed_tests": 112,
+    "pass_rate_2": 90.2,
+    "pass_rate_1": 80.4,
+    "passes_total": 101,
+    "passes_1st_try": 90,
+    "percent_cases_well_formed": 100.0,
+    "error_outputs": 4,
+    "seconds_per_case": 105.1,
+    "total_cost": 0.00,
+    "cost_per_case": 0.0000
+  },
+  {
+    "model": "claude-opus-4-5",
+    "completed_tests": 112,
+    "pass_rate_2": 90.2,
+    "pass_rate_1": 76.8,
+    "passes_total": 101,
+    "passes_1st_try": 86,
+    "percent_cases_well_formed": 100.0,
+    "error_outputs": 0,
+    "seconds_per_case": 14.9,
+    "total_cost": 0.00,
+    "cost_per_case": 0.0000
+  }
+]

@@ -15,6 +15,7 @@ RUN apt-get update && apt-get install -y \
     ca-certificates-java \
     openjdk-21-jdk \
     libtbb-dev \
+    vim \
     && rm -rf /var/lib/apt/lists/*
 
 # Make python3.11 the default python3
@@ -56,6 +57,9 @@ RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \
     babel-jest@29.6.4 \
     core-js@3.37.1 \
     eslint@8.49.0
+
+# Install Haskell Stack
+RUN curl -sSL https://get.haskellstack.org/ | sh
 
 COPY . /aider
 RUN pip3 install --no-cache-dir --upgrade pip uv
