@@ -1,5 +1,44 @@
 [
   {
+    "model": "gpt-5.4 (effort=xhigh)",
+    "completed_tests": 112,
+    "pass_rate_2": 94.6,
+    "pass_rate_1": 89.3,
+    "passes_total": 106,
+    "passes_1st_try": 100,
+    "percent_cases_well_formed": 100.0,
+    "error_outputs": 1,
+    "seconds_per_case": 251.1,
+    "total_cost": 18.30,
+    "cost_per_case": 0.1634
+  },
+  {
+    "model": "gemini-3.1-pro-preview",
+    "completed_tests": 112,
+    "pass_rate_2": 92.0,
+    "pass_rate_1": 80.4,
+    "passes_total": 103,
+    "passes_1st_try": 90,
+    "percent_cases_well_formed": 99.1,
+    "error_outputs": 3,
+    "seconds_per_case": 85.1,
+    "total_cost": 10.42,
+    "cost_per_case": 0.0930
+  },
+  {
+    "model": "claude-opus-4-6 (thinking)",
+    "completed_tests": 112,
+    "pass_rate_2": 90.2,
+    "pass_rate_1": 83.0,
+    "passes_total": 101,
+    "passes_1st_try": 93,
+    "percent_cases_well_formed": 100.0,
+    "error_outputs": 0,
+    "seconds_per_case": 26.6,
+    "total_cost": 6.11,
+    "cost_per_case": 0.0545
+  },
+  {
     "model": "gpt-5-pro",
     "completed_tests": 112,
     "pass_rate_2": 90.2,
@@ -50,5 +89,44 @@
     "seconds_per_case": 14.9,
     "total_cost": 0.00,
     "cost_per_case": 0.0000
+  },
+  {
+    "model": "o3-high",
+    "completed_tests": 112,
+    "pass_rate_2": 88.4,
+    "pass_rate_1": 73.2,
+    "passes_total": 99,
+    "passes_1st_try": 82,
+    "percent_cases_well_formed": 100.0,
+    "error_outputs": 0,
+    "seconds_per_case": 51.7,
+    "total_cost": 19.05,
+    "cost_per_case": 0.1701
+  },
+  {
+    "model": "claude-opus-4-6",
+    "completed_tests": 112,
+    "pass_rate_2": 85.7,
+    "pass_rate_1": 73.2,
+    "passes_total": 96,
+    "passes_1st_try": 82,
+    "percent_cases_well_formed": 100.0,
+    "error_outputs": 0,
+    "seconds_per_case": 14.2,
+    "total_cost": 3.98,
+    "cost_per_case": 0.0355
+  },
+  {
+    "model": "gpt-5.4",
+    "completed_tests": 112,
+    "pass_rate_2": 85.7,
+    "pass_rate_1": 63.4,
+    "passes_total": 96,
+    "passes_1st_try": 71,
+    "percent_cases_well_formed": 100.0,
+    "error_outputs": 0,
+    "seconds_per_case": 10.4,
+    "total_cost": 1.82,
+    "cost_per_case": 0.0163
   }
 ]

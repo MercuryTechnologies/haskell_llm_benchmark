@@ -3,6 +3,7 @@
 aider.code-workspace
 *.pyc
 .aider*
+!.aider.model.settings.yml
 aider_chat.egg-info/
 build
 dist/

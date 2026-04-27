@@ -1,19 +1,21 @@
 # Haskell LLM Benchmark
 
-This is a test harness to evaluate LLM models on their ability to consistently follow instructions to succesfully edit Haskell code. 
+This is a test harness to evaluate LLM models on their ability to consistently follow instructions to successfully edit Haskell code. 
 
 It is a modified version of the [Aider benchmark harness](https://github.com/Aider-AI/aider/blob/main/benchmark/README.md) adapted to include a Haskell environment.
 
 The benchmark is based on [Exercism's Haskell exercises](https://exercism.org/tracks/haskell) ([Github](https://github.com/exercism/haskell)). This benchmark evaluates how effectively a coding assistant and LLMs can translate a natural language coding request into executable code saved into files that pass unit tests. It provides an end-to-end evaluation of not just the LLM's coding ability, but also its capacity to edit existing code and format those code edits so that aider can save the edits to the local source files.
 
-_Last updated: 2026-03-09_
+_Last updated: 2026-04-27_
 
-![Haskell LLM Benchmark](/benchmark-result/report-2026-03-09-12-26-28/benchmark_comparison.png)
+![Haskell LLM Benchmark](/benchmark-result/report-2026-04-27-17-01-20/benchmark_comparison.png)
 
 | Model | Tests | Pass % | Pass 1st Try % | Tests Passed | Passes 1st Try | Well Formed % | Errors | Sec/Test | Total Cost ($) | Cost/Test ($) |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| gpt-5.5-2026-04-23 (effort=xhigh) | 112 | 95.5 | 92.0 | 107 | 103 | 100.0 | 0 | 66.9 | 13.10 | 0.1170 |
 | gpt-5.4 (effort=xhigh) | 112 | 94.6 | 89.3 | 106 | 100 | 100.0 | 1 | 251.1 | 18.30 | 0.1634 |
 | gemini-3.1-pro-preview | 112 | 92.0 | 80.4 | 103 | 90 | 99.1 | 3 | 85.1 | 10.42 | 0.0930 |
+| claude-opus-4-7 (thinking) | 112 | 91.1 | 75.0 | 102 | 84 | 100.0 | 0 | 14.4 | 5.30 | 0.0473 |
 | claude-opus-4-6 (thinking) | 112 | 90.2 | 83.0 | 101 | 93 | 100.0 | 0 | 26.6 | 6.11 | 0.0545 |
 | gpt-5-pro | 112 | 90.2 | 83.0 | 101 | 93 | 100.0 | 29 | 733.3 | 75.16 | 0.6710 |
 | gpt-5-high | 112 | 90.2 | 82.1 | 101 | 92 | 100.0 | 0 | 117.2 | 6.93 | 0.0619 |
