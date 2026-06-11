@@ -8,12 +8,13 @@ The benchmark is based on [Exercism's Haskell exercises](https://exercism.org/tr
 
 _Last updated: 2026-06-11_
 
-![Haskell LLM Benchmark](/benchmark-result/report-2026-06-11-09-41-29/benchmark_comparison.png)
+![Haskell LLM Benchmark](/benchmark-result/report-2026-06-11-10-34-25/benchmark_comparison.png)
 
 | Model | Tests | Pass % | Pass 1st Try % | Tests Passed | Passes 1st Try | Well Formed % | Errors | Sec/Test | Total Cost ($) | Cost/Test ($) |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | claude-fable-5 | 112 | 99.1 | 92.9 | 111 | 104 | 100.0 | 0 | 16.8 | 8.29 | 0.0740 |
 | gpt-5.5-2026-04-23 (effort=xhigh) | 112 | 95.5 | 92.0 | 107 | 103 | 100.0 | 0 | 66.9 | 13.10 | 0.1170 |
+| claude-opus-4-8 | 112 | 94.6 | 86.6 | 106 | 97 | 100.0 | 0 | 19.1 | 5.66 | 0.0505 |
 | gpt-5.4 (effort=xhigh) | 112 | 94.6 | 89.3 | 106 | 100 | 100.0 | 1 | 251.1 | 18.30 | 0.1634 |
 | gemini-3.1-pro-preview | 112 | 92.0 | 80.4 | 103 | 90 | 99.1 | 3 | 85.1 | 10.42 | 0.0930 |
 | claude-opus-4-7 (thinking) | 112 | 91.1 | 75.0 | 102 | 84 | 100.0 | 0 | 14.4 | 5.30 | 0.0473 |
