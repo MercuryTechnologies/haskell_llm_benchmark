@@ -6,12 +6,13 @@ It is a modified version of the [Aider benchmark harness](https://github.com/Aid
 
 The benchmark is based on [Exercism's Haskell exercises](https://exercism.org/tracks/haskell) ([Github](https://github.com/exercism/haskell)). This benchmark evaluates how effectively a coding assistant and LLMs can translate a natural language coding request into executable code saved into files that pass unit tests. It provides an end-to-end evaluation of not just the LLM's coding ability, but also its capacity to edit existing code and format those code edits so that aider can save the edits to the local source files.
 
-_Last updated: 2026-04-27_
+_Last updated: 2026-06-11_
 
-![Haskell LLM Benchmark](/benchmark-result/report-2026-04-27-17-01-20/benchmark_comparison.png)
+![Haskell LLM Benchmark](/benchmark-result/report-2026-06-11-09-41-29/benchmark_comparison.png)
 
 | Model | Tests | Pass % | Pass 1st Try % | Tests Passed | Passes 1st Try | Well Formed % | Errors | Sec/Test | Total Cost ($) | Cost/Test ($) |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| claude-fable-5 | 112 | 99.1 | 92.9 | 111 | 104 | 100.0 | 0 | 16.8 | 8.29 | 0.0740 |
 | gpt-5.5-2026-04-23 (effort=xhigh) | 112 | 95.5 | 92.0 | 107 | 103 | 100.0 | 0 | 66.9 | 13.10 | 0.1170 |
 | gpt-5.4 (effort=xhigh) | 112 | 94.6 | 89.3 | 106 | 100 | 100.0 | 1 | 251.1 | 18.30 | 0.1634 |
 | gemini-3.1-pro-preview | 112 | 92.0 | 80.4 | 103 | 90 | 99.1 | 3 | 85.1 | 10.42 | 0.0930 |

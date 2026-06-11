@@ -1,0 +1,14 @@
+dirname,dir_path,completed_tests,total_tests,model,edit_format,commit_hash,pass_rate_1,pass_rate_2,percent_cases_well_formed,error_outputs,num_malformed_responses,num_with_malformed_responses,seconds_per_case,total_cost,cost_per_case,passes_total,passes_1st_try,model_mode,model_display
+2026-04-27-15-04-50--claude-opus-4.7-thinking-run,tmp.benchmarks/2026-04-27-15-04-50--claude-opus-4.7-thinking-run,112,112.0,claude-opus-4-7 (thinking),whole,3772976-dirty,75.0,91.1,100.0,0,0.0,0.0,14.4,5.3,0.0473,102,84,thinking,claude-opus-4-7 (thinking)
+2026-04-27-14-42-57--gpt-5.5-xhigh-run,tmp.benchmarks/2026-04-27-14-42-57--gpt-5.5-xhigh-run,112,112.0,gpt-5.5-2026-04-23 (effort=xhigh),whole,3772976,92.0,95.5,100.0,0,0.0,0.0,66.9,13.1,0.117,107,103,,gpt-5.5-2026-04-23 (effort=xhigh)
+2026-06-11-09-36-56--claude-fable-5-run,tmp.benchmarks/2026-06-11-09-36-56--claude-fable-5-run,112,112.0,claude-fable-5,whole,db00f59-dirty,92.9,99.1,100.0,0,0.0,0.0,16.8,8.29,0.074,111,104,regular,claude-fable-5
+,,112,,gpt-5.4 (effort=xhigh),,,89.3,94.6,100.0,1,,,251.1,18.3,0.1634,106,100,,gpt-5.4 (effort=xhigh)
+,,112,,gemini-3.1-pro-preview,,,80.4,92.0,99.1,3,,,85.1,10.42,0.093,103,90,,gemini-3.1-pro-preview
+,,112,,claude-opus-4-6 (thinking),,,83.0,90.2,100.0,0,,,26.6,6.11,0.0545,101,93,,claude-opus-4-6 (thinking)
+,,112,,gpt-5-pro,,,83.0,90.2,100.0,29,,,733.3,75.16,0.671,101,93,,gpt-5-pro
+,,112,,gpt-5-high,,,82.1,90.2,100.0,0,,,117.2,6.93,0.0619,101,92,,gpt-5-high
+,,112,,gemini-3-pro-preview,,,80.4,90.2,100.0,4,,,105.1,0.0,0.0,101,90,,gemini-3-pro-preview
+,,112,,claude-opus-4-5,,,76.8,90.2,100.0,0,,,14.9,0.0,0.0,101,86,,claude-opus-4-5
+,,112,,o3-high,,,73.2,88.4,100.0,0,,,51.7,19.05,0.1701,99,82,,o3-high
+,,112,,claude-opus-4-6,,,73.2,85.7,100.0,0,,,14.2,3.98,0.0355,96,82,,claude-opus-4-6
+,,112,,gpt-5.4,,,63.4,85.7,100.0,0,,,10.4,1.82,0.0163,96,71,,gpt-5.4
